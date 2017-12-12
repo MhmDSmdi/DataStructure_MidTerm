@@ -41,6 +41,9 @@ public class AgencyData extends Data {
         orderQueue.enqueueList();
     }
 
+    /*
+    Complexity : O(n)
+    */
     public boolean isContainService(String serviceName) {
         for (MyNode a : agencyServiceList) {
             if (a.getData().dataName.equals(serviceName))

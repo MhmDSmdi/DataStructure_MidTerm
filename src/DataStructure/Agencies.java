@@ -20,6 +20,11 @@ public class Agencies {
         this.first = first;
     }
 
+    /*
+    BestCase : O(1)
+    WorstCase : O(n)
+    AverageCase : O(n)
+    */
     public MyNode getAgency(String agencyName) {
         MyNode root = first;
         while (root != null){
@@ -32,6 +37,9 @@ public class Agencies {
         return null;
     }
 
+    /*
+    Complexity : O(n)
+    */
     public boolean addAgency(String agencyName) {
         AgencyData agencyData = new AgencyData(agencyName);
         if (first == null) {
@@ -52,6 +60,9 @@ public class Agencies {
         }
     }
 
+    /*
+    Complexity : O(n)
+   */
     public boolean isExistAgency(String agencyName) {
         MyNode root = first;
         while(root != null) {
@@ -73,6 +84,9 @@ public class Agencies {
         }
     }
 
+    /*
+    Complexity : O(n)
+    */
     public boolean addOfferToAgency(String serviceName, String agencyName) {
         MyNode agency = getAgency(agencyName);
         MyNode service = servicesGList.getMainServiceNode(serviceName);
@@ -83,7 +97,11 @@ public class Agencies {
         else
             return false;
     }
-
+    /*
+     BestCase : O(1)
+     WorstCase : O(n)
+     AverageCase : O(n)
+    */
     public boolean delete(String serviceName, String agencyName) {
         MyNode agency = getAgency(agencyName);
         if (agency == null || !((AgencyData)agency.getData()).isContainService(serviceName) || servicesGList.isExistService(servicesGList.getFirst(), serviceName))

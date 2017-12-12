@@ -15,6 +15,8 @@ public class Services {
         this.first = first;
     }
 
+    //Worst Case : O(n)
+    //Average Case : O(n)
     public boolean addService (ServiceData newService) {
         if (first == null) {
             MyNode temp = new MyNode(null, null, newService, 0);
@@ -35,6 +37,7 @@ public class Services {
         }
     }
 
+    //Complexity : O(n)
     public boolean isExistService(MyNode root, String serviceName) {
         if (root != null) {
             if (root.getData().getDataName().equals(serviceName)) {
@@ -52,6 +55,9 @@ public class Services {
         return getExistServiceNode(first, serviceName);
     }
 
+    /*
+    Complexity : O(n)
+    */
     public MyNode getMainServiceNode(String serviceName) {
         MyNode root = first;
         while(root != null) {
@@ -65,6 +71,7 @@ public class Services {
         return null;
     }
 
+    //Complexity : O(n)
     public MyNode getExistServiceNode(MyNode root, String newService) {
        if (root != null) {
            if (root.getData().getDataName().equals(newService)) {
@@ -82,31 +89,39 @@ public class Services {
        return null;
     }
 
+    /*
+    BestCase : O(1)
+    WorstCase : O(n)
+    AverageCase:
+     */
     public boolean addSubToService(MyNode parent, ServiceData subData) {
-        MyNode tempNode = new MyNode();
-        tempNode.setData(subData);
-        boolean isExist = false;
-        if (parent.isSuperNode()) {
-            MyNode p = parent.getdLink();
-            while(!p.isFPnull()){
-                if (p.getData().getDataName().equals(subData.getDataName())){
-                    isExist = true;
-                    break;
+        if (getMainServiceNode(subData.getDataName()) == null) {
+            MyNode tempNode = new MyNode();
+            tempNode.setData(subData);
+            boolean isExist = false;
+            if (parent.isSuperNode()) {
+                MyNode p = parent.getdLink();
+                while(!p.isFPnull()){
+                    if (p.getData().getDataName().equals(subData.getDataName())){
+                        isExist = true;
+                        break;
+                    }
+                    else
+                        p = p.getLink();
+                }
+                if (!isExist && !p.getData().getDataName().equals(subData.getDataName())){
+                    p.setLink(tempNode);
+                    return true;
                 }
                 else
-                    p = p.getLink();
+                    return false;
             }
-            if (!isExist && !p.getData().getDataName().equals(subData.getDataName())){
-                p.setLink(tempNode);
+            else {
+                parent.setdLink(tempNode);
                 return true;
             }
-            else
-                return false;
-        }
-        else {
-            parent.setdLink(tempNode);
-            return true;
-        }
+        }else
+            return false;
     }
 
     private void addParentToChild(MyNode parent, MyNode child) {

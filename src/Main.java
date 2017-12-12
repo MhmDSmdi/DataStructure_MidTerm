@@ -19,31 +19,58 @@ public class Main {
                 System.out.println("Command Wrong");
             else
                 switch (userCommand.getType()) {
+                    // Complexity : O(n)
                     case ADD_SERVICE:
-                        services.addService(new ServiceData(userCommand.getCommand()[2]));
+                        if(!services.addService(new ServiceData(userCommand.getCommand()[2])))
+                            System.out.println("Service is Exist in GList");
                         System.out.print("<");
                         services.printServiceGList();
                         System.out.print(">");
                         System.out.println();
                         break;
+                        /*
+                         BestCase : O(1)
+                         WorstCase : O(n)
+                         AverageCase : O(n)
+                         */
                     case ADD_SUB_SERVICE:
                         MyNode parent = services.getExistServiceNode(userCommand.getCommand()[4]);
                         ServiceData newService = new ServiceData(userCommand.getCommand()[2]);
-                        if (parent != null)
-                            services.addSubToService(parent, newService);
+                        if (parent != null) {
+                            if (!services.addSubToService(parent, newService))
+                                System.out.println("Child Service is Wrong");
+                        }
                         else
-                            System.out.println("Service Not Found");
+                            System.out.println("Parent_Service Not Found");
+                        System.out.print("<");
                         services.printServiceGList();
+                        System.out.print(">");
+                        System.out.println();
                         break;
+                        /*
+                         BestCase : O(1)
+                         WorstCase : O(n)
+                         AverageCase : O(n)
+                        */
                     case ADD_OFFER:
-                        agencies.addOfferToAgency(userCommand.getCommand()[2], userCommand.getCommand()[4]);
+                        if (!agencies.addOfferToAgency(userCommand.getCommand()[2], userCommand.getCommand()[4]))
+                            System.out.println("Service Or Agency Not Found");
                         break;
+                        /*
+                         BestCase : O(1)
+                         WorstCase : O(n)
+                         AverageCase : O(n)
+                        */
                     case DELETE:
                         agencies.delete(userCommand.getCommand()[1], userCommand.getCommand()[3]);
                         break;
+                        /*
+                        Complexity : O(n)
+                        */
                     case ADD_AGENCY:
                         agencies.addAgency(userCommand.getCommand()[2]);
                         agencies.print(agencies.getFirst());
+                        System.out.println();
                         break;
                     case LIST_AGENCIES:
                         System.out.print("<");
@@ -64,10 +91,12 @@ public class Main {
                         break;
                     case ORDER:
                         Integer priority = Integer.parseInt(userCommand.getCommand()[7]);
-                        ServiceData serviceData = (ServiceData) services.getExistServiceNode(userCommand.getCommand()[1]).getData();
+                        MyNode temp = services.getExistServiceNode(userCommand.getCommand()[1]);
                         String customer = userCommand.getCommand()[5];
-                        OrderData order = new OrderData(serviceData, priority, customer);
-                        agencies.addOrderToAgency(order, userCommand.getCommand()[3]);
+                        if (temp != null) {
+                            OrderData order = new OrderData((ServiceData)temp.getData(), priority, customer);
+                            agencies.addOrderToAgency(order, userCommand.getCommand()[3]);
+                        }
                         break;
                     case LIST_ORDERS:
                         MyNode agency = agencies.getAgency(userCommand.getCommand()[2]);
