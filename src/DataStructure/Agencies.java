@@ -90,8 +90,9 @@ public class Agencies {
     public boolean addOfferToAgency(String serviceName, String agencyName) {
         MyNode agency = getAgency(agencyName);
         MyNode service = servicesGList.getMainServiceNode(serviceName);
-        if (agency != null && service != null) {
+        if (agency != null && service != null && !((AgencyData)agency.getData()).getAgencyServiceList().contains(service)) {
             ((AgencyData) agency.getData()).addOffer(service);
+            ((AgencyData) agency.getData()).printOffers();
             return true;
         }
         else
@@ -113,6 +114,7 @@ public class Agencies {
             if (((ServiceData) service.getData()).isFreeUsage()) {
                 servicesGList.removeNode(service);
             }
+            ((AgencyData)agency.getData()).printOffers();
             return true;
         }
     }

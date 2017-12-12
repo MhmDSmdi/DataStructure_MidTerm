@@ -62,7 +62,8 @@ public class Main {
                          AverageCase : O(n)
                         */
                     case DELETE:
-                        agencies.delete(userCommand.getCommand()[1], userCommand.getCommand()[3]);
+                        if (!agencies.delete(userCommand.getCommand()[1], userCommand.getCommand()[3]))
+                            System.out.println("Delete is not Valid");
                         break;
                         /*
                         Complexity : O(n)

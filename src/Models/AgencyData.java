@@ -52,6 +52,15 @@ public class AgencyData extends Data {
         return false;
     }
 
+    public void printOffers() {
+        System.out.print("<");
+        for (MyNode a : agencyServiceList){
+            System.out.print(a.getData().getDataName());
+            System.out.print(",");
+        }
+        System.out.print(">");
+    }
+
     public void addServiceToAgency(MyNode service) {
         agencyServiceList.add(service);
     }
