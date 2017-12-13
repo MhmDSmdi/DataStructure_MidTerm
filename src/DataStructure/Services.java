@@ -197,5 +197,25 @@ public class Services {
         }
     }
 
+    //Flag for recognize subList and parent
+    public void printSubService(MyNode root) {
+        System.out.println();
+        System.out.print("<");
+        System.out.print(root.getData().getDataName());
+        System.out.print(",");
+        System.out.print("<");
+        if (root.isSuperNode())
+            print(root.getdLink());
+        System.out.print(">");
+        System.out.print(">");
+        System.out.println();
+    }
+
+    /*public void printFrom(MyNode parent) {
+        printSubService(parent, false);
+    }*/
+
+
+
 
 }

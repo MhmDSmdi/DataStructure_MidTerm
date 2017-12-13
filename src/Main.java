@@ -86,7 +86,8 @@ public class Main {
                     case LIST_SERVICES_FROM:
                         MyNode service = services.getExistServiceNode(userCommand.getCommand()[3]);
                         if (service != null)
-                            services.print(service);
+                            /*services.print(service);*/
+                            services.printSubService(service);
                         else
                             System.out.println("SubList Error");
                         break;
