@@ -30,6 +30,7 @@ public class AgencyData extends Data {
 
     public void addOrder(OrderData order) {
         orderQueue.insert(order);
+        //orderQueue.print();
     }
 
     public void addOffer(MyNode service) {
@@ -48,6 +49,23 @@ public class AgencyData extends Data {
         for (MyNode a : agencyServiceList) {
             if (a.getData().dataName.equals(serviceName))
                 return true;
+            if (a.isSuperNode() && isContainService(serviceName, a.getdLink()))
+                return true;
+        }
+        return false;
+
+    }
+
+    private boolean isContainService(String serviceName, MyNode root) {
+        if (root.getData().dataName.equals(serviceName))
+            return true;
+        else {
+            if(!root.isFPnull())
+                 if (isContainService(serviceName, root.getLink()))
+                     return true;
+            if (root.isSuperNode())
+                if (isContainService(serviceName, root.getdLink()))
+                    return true;
         }
         return false;
     }
@@ -67,5 +85,9 @@ public class AgencyData extends Data {
 
     public void removeServiceFromAgency(MyNode service) {
         agencyServiceList.remove(service);
+    }
+
+    public static void main(String[] args) {
+        AgencyData agencyData = new AgencyData();
     }
 }

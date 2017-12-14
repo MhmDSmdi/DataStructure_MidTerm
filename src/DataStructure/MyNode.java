@@ -76,4 +76,21 @@ public class MyNode {
         else
             return true;
     }
+
+    public MyNode searchInSublist(MyNode root, String name) {
+        if (root != null) {
+            if (root.getData().getDataName().equals(name)) {
+                return root;
+            }
+            if (root.isSuperNode()) {
+                MyNode temp = searchInSublist(root.getdLink(), name);
+                if (temp != null) return temp;
+            }
+            if (!root.isFPnull()) {
+                MyNode temp = searchInSublist(root.getLink(), name);
+                if (temp != null) return temp;
+            }
+        }
+        return null;
+    }
 }

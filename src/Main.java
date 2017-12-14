@@ -12,6 +12,45 @@ public class Main {
         Services services = new Services();
         Agencies agencies = new Agencies(services);
 
+        //Initial List
+        services.addService(new ServiceData("a"));
+        services.addService(new ServiceData("b"));
+        services.addService(new ServiceData("c"));
+
+        MyNode parent = services.getExistServiceNode("a");
+        ServiceData newService = new ServiceData("a0");
+        services.addSubToService(parent, newService);
+
+        parent = services.getExistServiceNode("a");
+        newService = new ServiceData("a1");
+        services.addSubToService(parent, newService);
+
+        parent = services.getExistServiceNode("a0");
+        newService = new ServiceData("a00");
+        services.addSubToService(parent, newService);
+
+        parent = services.getExistServiceNode("a0");
+        newService = new ServiceData("a01");
+        services.addSubToService(parent, newService);
+
+        parent = services.getExistServiceNode("b");
+        newService = new ServiceData("b0");
+        services.addSubToService(parent, newService);
+
+        parent = services.getExistServiceNode("b");
+        newService = new ServiceData("b1");
+        services.addSubToService(parent, newService);
+
+        agencies.addAgency("ali");
+        agencies.addAgency("mh");
+
+        agencies.addOfferToAgency("a", "ali");
+        agencies.addOfferToAgency("b", "ali");
+        agencies.addOfferToAgency("a", "mh");
+        agencies.addOfferToAgency("c", "mh");
+
+
+
         InputHandler inputHandler = new InputHandler();
         while (true) {
             Command userCommand = inputHandler.parseCommand();
@@ -34,8 +73,8 @@ public class Main {
                          AverageCase : O(n)
                          */
                     case ADD_SUB_SERVICE:
-                        MyNode parent = services.getExistServiceNode(userCommand.getCommand()[4]);
-                        ServiceData newService = new ServiceData(userCommand.getCommand()[2]);
+                        parent = services.getExistServiceNode(userCommand.getCommand()[4]);
+                        newService = new ServiceData(userCommand.getCommand()[2]);
                         if (parent != null) {
                             if (!services.addSubToService(parent, newService))
                                 System.out.println("Child Service is Wrong");
@@ -86,7 +125,6 @@ public class Main {
                     case LIST_SERVICES_FROM:
                         MyNode service = services.getExistServiceNode(userCommand.getCommand()[3]);
                         if (service != null)
-                            /*services.print(service);*/
                             services.printSubService(service);
                         else
                             System.out.println("SubList Error");
@@ -97,8 +135,10 @@ public class Main {
                         String customer = userCommand.getCommand()[5];
                         if (temp != null) {
                             OrderData order = new OrderData((ServiceData)temp.getData(), priority, customer);
-                            agencies.addOrderToAgency(order, userCommand.getCommand()[3]);
-                        }
+                            if (!agencies.addOrderToAgency(order, userCommand.getCommand()[3]))
+                                System.out.println("Agency Is not Supported");
+                        }else
+                            System.out.println("Service Not Found");
                         break;
                     case LIST_ORDERS:
                         MyNode agency = agencies.getAgency(userCommand.getCommand()[2]);

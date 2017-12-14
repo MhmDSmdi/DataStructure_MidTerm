@@ -71,7 +71,9 @@ public class PriorityQueue {
     }
 
     private OrderData findMaxNode(OrderData leftChild, OrderData rightChild) {
-        if (leftChild.getPriority() > rightChild.getPriority())
+        if (rightChild == null)
+            return leftChild;
+        else if (leftChild.getPriority() > rightChild.getPriority())
             return leftChild;
         else if (leftChild.getPriority() < rightChild.getPriority())
             return rightChild;
@@ -99,14 +101,14 @@ public class PriorityQueue {
     public void enqueueList() {
         while(size >= 1) {
             OrderData temp = remove();
-            System.out.println("CustomerName: " + temp.getCustomerName() + "\tServiceName" + temp.getService().getDataName() + "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
+            System.out.println("CustomerName: " + temp.getCustomerName() /*+ "\tServiceName" + temp.getService().getDataName() */+ "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
             maxHeap();
         }
     }
 
     public void print() {
         for (int i = 1; i <= Math.ceil(size / 2) + 1; i++) {
-            System.out.print(" LEFT CHILD : " + myQueue[i].getPriority() + "\t time: " + myQueue[i].getTime() + "\t***");
+            System.out.print(" Parent : " + myQueue[i].getPriority() + "\t time: " + myQueue[i].getTime() + "\t***");
             if (2 * i <= size) {
                 System.out.print(" LEFT CHILD : " + myQueue[2 * i].getPriority() + "\t time: " + myQueue[2 * i].getTime() + "\t***");
             }
@@ -116,6 +118,8 @@ public class PriorityQueue {
             System.out.println();
         }
         System.out.println();
+       /* PriorityQueue a = this;
+        a.enqueueList();*/
     }
 
     public void maxHeap() {
@@ -136,28 +140,21 @@ public class PriorityQueue {
 
     public static void main(String[] args) {
         PriorityQueue maxHeap = new PriorityQueue(100);
+        maxHeap.insert(new OrderData(null, 20, ""));
         maxHeap.insert(new OrderData(null, 16, ""));
+        maxHeap.insert(new OrderData(null, 8, ""));
+        maxHeap.insert(new OrderData(null, 2, ""));
+        maxHeap.insert(new OrderData(null, 7, ""));
         maxHeap.insert(new OrderData(null, 1, ""));
-        maxHeap.insert(new OrderData(null, 9, ""));
-        maxHeap.insert(new OrderData(null, 9, ""));
-        maxHeap.insert(new OrderData(null, 9, ""));
-        maxHeap.insert(new OrderData(null, 9, ""));
-        maxHeap.insert(new OrderData(null, 11, ""));
-        maxHeap.insert(new OrderData(null, 12, ""));
-        maxHeap.insert(new OrderData(null, 12, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
+        maxHeap.insert(new OrderData(null, 20, ""));
+        maxHeap.insert(new OrderData(null, 1, ""));
+        maxHeap.insert(new OrderData(null, 3, ""));
+        maxHeap.insert(new OrderData(null, 20, ""));
+
         try {
             maxHeap.maxHeap();
         }catch (NullPointerException e) {
         }
-
         maxHeap.enqueueList();
     }
 }

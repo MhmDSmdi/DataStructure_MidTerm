@@ -76,7 +76,7 @@ public class Agencies {
 
     public boolean addOrderToAgency(OrderData orderData, String agencyName) {
         MyNode agency = getAgency(agencyName);
-        if (servicesGList.getExistServiceNode(orderData.getService().getDataName()) == null || agency == null || !((AgencyData)agency.getData()).isContainService(orderData.getService().getDataName()))
+        if (agency == null || !((AgencyData)agency.getData()).isContainService(orderData.getService().getDataName()))
             return false;
         else {
             ((AgencyData) agency.getData()).addOrder(orderData);
