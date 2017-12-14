@@ -23,8 +23,6 @@ public class OrderData extends Data {
         }
     }
 
-    public OrderData() {}
-
     public ServiceData getService() {
         return service;
     }

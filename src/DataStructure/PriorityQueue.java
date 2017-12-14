@@ -99,7 +99,7 @@ public class PriorityQueue {
     public void enqueueList() {
         while(size >= 1) {
             OrderData temp = remove();
-            System.out.println("OrderName: " + temp.getDataName() + "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
+            System.out.println("CustomerName: " + temp.getCustomerName() + "\tServiceName" + temp.getService().getDataName() + "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
             maxHeap();
         }
     }

@@ -105,10 +105,10 @@ public class Agencies {
     */
     public boolean delete(String serviceName, String agencyName) {
         MyNode agency = getAgency(agencyName);
-        if (agency == null || !((AgencyData)agency.getData()).isContainService(serviceName) || servicesGList.isExistService(servicesGList.getFirst(), serviceName))
+        MyNode service = servicesGList.getExistServiceNode(serviceName);
+        if (agency == null || !((AgencyData)agency.getData()).isContainService(serviceName) || service == null)
             return false;
         else {
-            MyNode service = servicesGList.getExistServiceNode(serviceName);
             ((AgencyData) agency.getData()).removeServiceFromAgency(service);
             ((ServiceData) service.getData()).decresaeUsrCount();
             if (((ServiceData) service.getData()).isFreeUsage()) {

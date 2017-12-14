@@ -23,7 +23,7 @@ public class Services {
             first = temp;
             return true;
         } else {
-            if (!isExistService(first,newService.getDataName())) {
+            if (getExistServiceNode(newService.getDataName()) == null) {
                 MyNode p = first;
                 while (!p.isFPnull()) {
                     p = p.getLink();
@@ -36,6 +36,7 @@ public class Services {
                 return false;
         }
     }
+/*
 
     //Complexity : O(n)
     public boolean isExistService(MyNode root, String serviceName) {
@@ -50,6 +51,7 @@ public class Services {
         }
        return false;
     }
+*/
 
     public MyNode getExistServiceNode(String serviceName) {
         return getExistServiceNode(first, serviceName);
@@ -95,7 +97,7 @@ public class Services {
     AverageCase:
      */
     public boolean addSubToService(MyNode parent, ServiceData subData) {
-        if (getMainServiceNode(subData.getDataName()) == null) {
+      /*  if (getMainServiceNode(subData.getDataName()) == null) {
             MyNode tempNode = new MyNode();
             tempNode.setData(subData);
             boolean isExist = false;
@@ -121,7 +123,26 @@ public class Services {
                 return true;
             }
         }else
-            return false;
+            return false;*/
+      if(getExistServiceNode(subData.getDataName()) != null || getExistServiceNode(parent.getData().getDataName()) == null)
+          return false;
+      else {
+          MyNode tempNode = new MyNode();
+          tempNode.setData(subData);
+          if (parent.isSuperNode()) {
+              MyNode p = parent.getdLink();
+              while(!p.isFPnull())
+                  p = p.getLink();
+              p.setLink(tempNode);
+              System.out.println("Added to Link");
+              return true;
+          }
+          else {
+              parent.setdLink(tempNode);
+              System.out.println("Added to dLink");
+              return true;
+          }
+      }
     }
 
     private void addParentToChild(MyNode parent, MyNode child) {
