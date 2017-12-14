@@ -105,7 +105,7 @@ public class Agencies {
     */
     public boolean delete(String serviceName, String agencyName) {
         MyNode agency = getAgency(agencyName);
-        MyNode service = servicesGList.getExistServiceNode(serviceName);
+        MyNode service = servicesGList.getMainServiceNode(serviceName);
         if (agency == null || !((AgencyData)agency.getData()).isContainService(serviceName) || service == null)
             return false;
         else {

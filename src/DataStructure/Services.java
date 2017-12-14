@@ -63,12 +63,13 @@ public class Services {
     public MyNode getMainServiceNode(String serviceName) {
         MyNode root = first;
         while(root != null) {
-            tempNode = root;
             if (root.getData().getDataName().equals(serviceName)) {
                 return root;
             }
-            else
+            else {
+                tempNode = root;
                 root = root.getLink();
+            }
         }
         return null;
     }
@@ -176,7 +177,7 @@ public class Services {
             return false;
 }
 
-    public void removeNode(String serviceName) {
+    /*public void removeNode(String serviceName) {
         MyNode serviceNode = getExistServiceNode(serviceName);
         if (first.equals(serviceNode)){
             first = first.getLink();
@@ -186,14 +187,17 @@ public class Services {
             tempNode.setLink(serviceNode.getLink());
             serviceNode.setLink(null);
         }
-    }
+    }*/
 
     public void removeNode(MyNode serviceNode) {
+        System.out.println(tempNode.getData().getDataName() + " = temp Node");
+        System.out.println(serviceNode.getData().getDataName() + " = Service Node");
         if (first.equals(serviceNode)){
             first = first.getLink();
             serviceNode.setLink(null);
             serviceNode.setdLink(null);
         }else {
+            System.out.println();
             tempNode.setLink(serviceNode.getLink());
             serviceNode.setLink(null);
         }
