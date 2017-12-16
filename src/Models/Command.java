@@ -7,7 +7,6 @@ public class Command {
     public Command(CommandType type, String[] command) {
         this.type = type;
         this.command = command;
-        //System.out.println(type);
     }
 
     public CommandType getType() {

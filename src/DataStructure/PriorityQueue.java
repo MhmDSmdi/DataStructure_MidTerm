@@ -5,11 +5,9 @@ import Models.OrderData;
 public class PriorityQueue {
     private OrderData[] myQueue;
     private int size;
-    private int maxsize;
     private static final int FRONT = 1;
 
     public PriorityQueue(int maxsize) {
-        this.maxsize = maxsize;
         this.size = 0;
         myQueue = new OrderData[maxsize + 1];
         myQueue[0] = new OrderData(null, Integer.MAX_VALUE, "");
@@ -106,22 +104,6 @@ public class PriorityQueue {
         }
     }
 
-    public void print() {
-        for (int i = 1; i <= Math.ceil(size / 2) + 1; i++) {
-            System.out.print(" Parent : " + myQueue[i].getPriority() + "\t time: " + myQueue[i].getTime() + "\t***");
-            if (2 * i <= size) {
-                System.out.print(" LEFT CHILD : " + myQueue[2 * i].getPriority() + "\t time: " + myQueue[2 * i].getTime() + "\t***");
-            }
-            if (2 * i + 1 <= size) {
-                System.out.print(" RIGHT CHILD :" + myQueue[2 * i + 1].getPriority() + "\t time: " + myQueue[2 * i + 1].getTime() + "\t***");
-            }
-            System.out.println();
-        }
-        System.out.println();
-       /* PriorityQueue a = this;
-        a.enqueueList();*/
-    }
-
     public void maxHeap() {
         for (int pos = (size / 2); pos >= 1; pos--) {
             maxHeapify(pos);
@@ -136,25 +118,5 @@ public class PriorityQueue {
         }catch (NullPointerException e){
         }
         return poped;
-    }
-
-    public static void main(String[] args) {
-        PriorityQueue maxHeap = new PriorityQueue(100);
-        maxHeap.insert(new OrderData(null, 20, ""));
-        maxHeap.insert(new OrderData(null, 16, ""));
-        maxHeap.insert(new OrderData(null, 8, ""));
-        maxHeap.insert(new OrderData(null, 2, ""));
-        maxHeap.insert(new OrderData(null, 7, ""));
-        maxHeap.insert(new OrderData(null, 1, ""));
-        maxHeap.insert(new OrderData(null, 20, ""));
-        maxHeap.insert(new OrderData(null, 1, ""));
-        maxHeap.insert(new OrderData(null, 3, ""));
-        maxHeap.insert(new OrderData(null, 20, ""));
-
-        try {
-            maxHeap.maxHeap();
-        }catch (NullPointerException e) {
-        }
-        maxHeap.enqueueList();
     }
 }

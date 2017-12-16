@@ -16,10 +16,6 @@ public class Agencies {
         return first;
     }
 
-    public void setFirst(MyNode first) {
-        this.first = first;
-    }
-
     /*
     BestCase : O(1)
     WorstCase : O(n)
@@ -43,7 +39,7 @@ public class Agencies {
     public boolean addAgency(String agencyName) {
         AgencyData agencyData = new AgencyData(agencyName);
         if (first == null) {
-            first = new MyNode(null, null, agencyData, 0);
+            first = new MyNode(null, null, agencyData);
             return true;
         }
         else {
@@ -51,7 +47,7 @@ public class Agencies {
             if (!isExistAgency(agencyData.getDataName())){
                 while(!root.isFPnull())
                     root = root.getLink();
-                MyNode newAgency = new MyNode(null, null, agencyData, 0);
+                MyNode newAgency = new MyNode(null, null, agencyData);
                 root.setLink(newAgency);
                 return true;
             }
@@ -93,11 +89,13 @@ public class Agencies {
         if (agency != null && service != null && !((AgencyData)agency.getData()).getAgencyServiceList().contains(service)) {
             ((AgencyData) agency.getData()).addOffer(service);
             ((AgencyData) agency.getData()).printOffers();
+            System.out.println();
             return true;
         }
         else
             return false;
     }
+
     /*
      BestCase : O(1)
      WorstCase : O(n)
@@ -132,66 +130,4 @@ public class Agencies {
             print(root.getLink());
         }
     }
-
-    public static void main(String[] args) {
-        Services services = new Services();
-
-        ServiceData b = new ServiceData();
-        b.setName("1");
-        services.addService(b);
-
-        ServiceData f = new ServiceData();
-        f.setName("2");
-        services.addService(f);
-
-        ServiceData g = new ServiceData();
-        g.setName("3");
-        services.addService(g);
-
-
-        ServiceData sub = new ServiceData();
-        sub.setName("5");
-
-        ServiceData sub1 = new ServiceData();
-        sub1.setName("6");
-
-        ServiceData sub2 = new ServiceData();
-        sub2.setName("7");
-
-        ServiceData sub3 = new ServiceData();
-        sub3.setName("8");
-
-        ServiceData sub4 = new ServiceData();
-        sub4.setName("9");
-
-        services.addSubToService(services.getExistServiceNode("1"), sub);
-        services.addSubToService(services.getExistServiceNode("1"), sub1);
-        services.addSubToService(services.getExistServiceNode("2"), sub);
-        services.addSubToService(services.getExistServiceNode("2"), sub2);
-        services.addSubToService(services.getExistServiceNode("3"), sub3);
-        services.addSubToService(services.getExistServiceNode("3"), sub4);
-
-       /* System.out.print("<");
-        services.printServiceGList();
-        System.out.print(">");
-        System.out.println();*/
-
-       Agencies a = new Agencies(services);
-
-       /*AgencyData d1 = new AgencyData("ASGHAR1");
-       a.addAgency(d1);
-       AgencyData d2 = new AgencyData("ASGHAR2");
-       a.addAgency(d2);
-       AgencyData d3 = new AgencyData("ASGHAR3");
-       a.addAgency(d3);
-       AgencyData d4 = new AgencyData("ASGHAR4");
-       a.addAgency(d4);
-       AgencyData d5 = new AgencyData("ASGHAR5");
-       a.addAgency(d5);*/
-
-       System.out.print("<");
-       a.print(a.getFirst());
-       System.out.print(">");
-    }
-
 }

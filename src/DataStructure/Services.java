@@ -2,24 +2,18 @@ package DataStructure;
 
 import Models.ServiceData;
 
-public class Services {
+public class  Services {
 
     private MyNode first;
     private MyNode tempNode;
 
-    public MyNode getFirst() {
-        return first;
-    }
-
-    public void setFirst(MyNode first) {
-        this.first = first;
-    }
-
-    //Worst Case : O(n)
-    //Average Case : O(n)
+    /*
+    Worst Case : O(n)
+    Average Case : O(n)
+    */
     public boolean addService (ServiceData newService) {
         if (first == null) {
-            MyNode temp = new MyNode(null, null, newService, 0);
+            MyNode temp = new MyNode(null, null, newService);
             first = temp;
             return true;
         } else {
@@ -28,7 +22,7 @@ public class Services {
                 while (!p.isFPnull()) {
                     p = p.getLink();
                 }
-                MyNode temp = new MyNode(null, null, newService, 0);
+                MyNode temp = new MyNode(null, null, newService);
                 p.setLink(temp);
                 return true;
             }
@@ -36,22 +30,6 @@ public class Services {
                 return false;
         }
     }
-/*
-
-    //Complexity : O(n)
-    public boolean isExistService(MyNode root, String serviceName) {
-        if (root != null) {
-            if (root.getData().getDataName().equals(serviceName)) {
-                return true;
-            }
-            if (root.isSuperNode())
-                return isExistService(root.getdLink(), serviceName);
-            if (!root.isFPnull())
-                return isExistService(root.getLink(), serviceName);
-        }
-       return false;
-    }
-*/
 
     public MyNode getExistServiceNode(String serviceName) {
         return getExistServiceNode(first, serviceName);
@@ -76,20 +54,6 @@ public class Services {
 
     //Complexity : O(n)
     public MyNode getExistServiceNode(MyNode root, String newService) {
-       /*if (root != null) {
-           if (root.getData().getDataName().equals(newService)) {
-               return root;
-           }
-           if (root.isSuperNode()) {
-               MyNode temp = getExistServiceNode(root.getdLink(), newService);
-               if (temp != null) return temp;
-           }
-           if (!root.isFPnull()) {
-               MyNode temp = getExistServiceNode(root.getLink(), newService);
-               if (temp != null) return temp;
-           }
-       }
-       return null;*/
        return root.searchInSublist(root, newService);
     }
 
@@ -97,35 +61,8 @@ public class Services {
     BestCase : O(1)
     WorstCase : O(n)
     AverageCase:
-     */
+    */
     public boolean addSubToService(MyNode parent, ServiceData subData) {
-      /*  if (getMainServiceNode(subData.getDataName()) == null) {
-            MyNode tempNode = new MyNode();
-            tempNode.setData(subData);
-            boolean isExist = false;
-            if (parent.isSuperNode()) {
-                MyNode p = parent.getdLink();
-                while(!p.isFPnull()){
-                    if (p.getData().getDataName().equals(subData.getDataName())){
-                        isExist = true;
-                        break;
-                    }
-                    else
-                        p = p.getLink();
-                }
-                if (!isExist && !p.getData().getDataName().equals(subData.getDataName())){
-                    p.setLink(tempNode);
-                    return true;
-                }
-                else
-                    return false;
-            }
-            else {
-                parent.setdLink(tempNode);
-                return true;
-            }
-        }else
-            return false;*/
       if(getExistServiceNode(subData.getDataName()) != null || getExistServiceNode(parent.getData().getDataName()) == null)
           return false;
       else {
@@ -136,62 +73,16 @@ public class Services {
               while(!p.isFPnull())
                   p = p.getLink();
               p.setLink(tempNode);
-              System.out.println("Added to Link");
               return true;
           }
           else {
               parent.setdLink(tempNode);
-              System.out.println("Added to dLink");
               return true;
           }
       }
     }
 
-    private void addParentToChild(MyNode parent, MyNode child) {
-        if (child != null) {
-            if (!child.getParents().contains(parent)) {
-                if (!parent.isSuperNode()) {
-                    child.addParent(parent);
-                    parent.addChiledNumber();
-                    parent.setdLink(child);
-                } else {
-                    MyNode root = parent.getdLink();
-                    while (!root.isFPnull())
-                        root = root.getLink();
-                    root.addParent(parent);
-                    root.setLink(child);
-                }
-            }
-        }
-    }
-
-    private boolean isChiledOf(MyNode parent, MyNode child) {
-        MyNode root = parent;
-        if (root.equals(child))
-            return true;
-        if (root.isSuperNode())
-            return isChiledOf(root.getdLink(), child);
-        if (!root.isSuperNode())
-            return isChiledOf(root.getLink(), child);
-        else
-            return false;
-}
-
-    /*public void removeNode(String serviceName) {
-        MyNode serviceNode = getExistServiceNode(serviceName);
-        if (first.equals(serviceNode)){
-            first = first.getLink();
-            serviceNode.setLink(null);
-            serviceNode.setdLink(null);
-        }else {
-            tempNode.setLink(serviceNode.getLink());
-            serviceNode.setLink(null);
-        }
-    }*/
-
     public void removeNode(MyNode serviceNode) {
-        System.out.println(tempNode.getData().getDataName() + " = temp Node");
-        System.out.println(serviceNode.getData().getDataName() + " = Service Node");
         if (first.equals(serviceNode)){
             first = first.getLink();
             serviceNode.setLink(null);
@@ -225,23 +116,14 @@ public class Services {
 
     //Flag for recognize subList and parent
     public void printSubService(MyNode root) {
-        System.out.println();
         System.out.print("<");
         System.out.print(root.getData().getDataName());
-        System.out.print(",");
-        System.out.print("<");
-        if (root.isSuperNode())
+        if (root.isSuperNode()) {
+            System.out.print(",");
+            System.out.print("<");
             print(root.getdLink());
+            System.out.print(">");
+        }
         System.out.print(">");
-        System.out.print(">");
-        System.out.println();
     }
-
-    /*public void printFrom(MyNode parent) {
-        printSubService(parent, false);
-    }*/
-
-
-
-
 }

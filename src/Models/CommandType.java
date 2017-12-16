@@ -10,5 +10,5 @@ public enum CommandType {
     LIST_SERVICES,
     LIST_SERVICES_FROM,
     ORDER,
-    LIST_ORDERS;
+    LIST_ORDERS
 }

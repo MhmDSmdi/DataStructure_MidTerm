@@ -15,17 +15,8 @@ public class AgencyData extends Data {
         orderQueue = new PriorityQueue(1000);
     }
 
-    public AgencyData() {
-        agencyServiceList = new ArrayList<>();
-        orderQueue = new PriorityQueue(1000);
-    }
-
     public ArrayList<MyNode> getAgencyServiceList() {
         return agencyServiceList;
-    }
-
-    public PriorityQueue getOrderQueue() {
-        return orderQueue;
     }
 
     public void addOrder(OrderData order) {
@@ -79,15 +70,7 @@ public class AgencyData extends Data {
         System.out.print(">");
     }
 
-    public void addServiceToAgency(MyNode service) {
-        agencyServiceList.add(service);
-    }
-
     public void removeServiceFromAgency(MyNode service) {
         agencyServiceList.remove(service);
-    }
-
-    public static void main(String[] args) {
-        AgencyData agencyData = new AgencyData();
     }
 }
