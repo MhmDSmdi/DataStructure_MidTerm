@@ -54,7 +54,10 @@ public class  Services {
 
     //Complexity : O(n)
     public MyNode getExistServiceNode(MyNode root, String newService) {
-       return root.searchInSublist(root, newService);
+       if (root != null)
+           return root.searchInSublist(root, newService);
+       else
+           return null;
     }
 
     /*

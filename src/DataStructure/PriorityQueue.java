@@ -44,7 +44,6 @@ public class PriorityQueue {
             if (myQueue[pos].getPriority() < findMaxNode(myQueue[leftChild(pos)], myQueue[rightChild(pos)]).getPriority()){
                 int a = getNodePos(findMaxNode(myQueue[leftChild(pos)], myQueue[rightChild(pos)]));
                 if (a > 0){
-                    maxHeapify(a);
                     swap(pos, a);
                 }
             }
@@ -52,7 +51,6 @@ public class PriorityQueue {
                 if (myQueue[pos].getTime() > findMaxNode(myQueue[leftChild(pos)], myQueue[rightChild(pos)]).getTime()) {
                     int a = getNodePos(findMaxNode(myQueue[leftChild(pos)], myQueue[rightChild(pos)]));
                     if (a > 0){
-                        maxHeapify(a);
                         swap(pos, a);
                     }
                 }
@@ -85,22 +83,12 @@ public class PriorityQueue {
 
     public void insert(OrderData element) {
         myQueue[++size] = element;
-        int current = size;
-        while(myQueue[current].getPriority() > myQueue[parent(current)].getPriority()) {
-            swap(current,parent(current));
-            current = parent(current);
-        }
-        while(myQueue[current].getPriority() == myQueue[parent(current)].getPriority() && myQueue[current].getTime() < myQueue[parent(current)].getTime()) {
-            swap(current,parent(current));
-            current = parent(current);
-        }
     }
 
     public void enqueueList() {
         while(size >= 1) {
             OrderData temp = remove();
-            System.out.println("CustomerName: " + temp.getCustomerName() /*+ "\tServiceName" + temp.getService().getDataName() */+ "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
-            maxHeap();
+            System.out.println("CustomerName: " + temp.getCustomerName() /*+ "\tServiceName" + temp.getService().getDataName()*/ + "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
         }
     }
 
@@ -111,12 +99,12 @@ public class PriorityQueue {
     }
 
     public OrderData remove() {
-        OrderData poped = myQueue[FRONT];
-        myQueue[FRONT] = myQueue[size--];
         try {
-            maxHeapify(FRONT);
+            maxHeap();
         }catch (NullPointerException e){
         }
+        OrderData poped = myQueue[FRONT];
+        myQueue[FRONT] = myQueue[size--];
         return poped;
     }
 }

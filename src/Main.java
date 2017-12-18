@@ -11,50 +11,11 @@ public class Main {
 
         Services services = new Services();
         Agencies agencies = new Agencies(services);
-
-        //Initial List
-        services.addService(new ServiceData("a"));
-        services.addService(new ServiceData("b"));
-        services.addService(new ServiceData("c"));
-
-        MyNode parent = services.getExistServiceNode("a");
-        ServiceData newService = new ServiceData("a0");
-        services.addSubToService(parent, newService);
-
-        parent = services.getExistServiceNode("a");
-        newService = new ServiceData("a1");
-        services.addSubToService(parent, newService);
-
-        parent = services.getExistServiceNode("a0");
-        newService = new ServiceData("a00");
-        services.addSubToService(parent, newService);
-
-        parent = services.getExistServiceNode("a0");
-        newService = new ServiceData("a01");
-        services.addSubToService(parent, newService);
-
-        parent = services.getExistServiceNode("b");
-        newService = new ServiceData("b0");
-        services.addSubToService(parent, newService);
-
-        parent = services.getExistServiceNode("b");
-        newService = new ServiceData("b1");
-        services.addSubToService(parent, newService);
-
-        agencies.addAgency("ali");
-        agencies.addAgency("mh");
-
-        agencies.addOfferToAgency("a", "ali");
-        agencies.addOfferToAgency("b", "ali");
-        agencies.addOfferToAgency("a", "mh");
-        agencies.addOfferToAgency("c", "mh");
-
-
         InputHandler inputHandler = new InputHandler();
         while (true) {
             Command userCommand = inputHandler.parseCommand();
             if (userCommand == null)
-                System.out.println("Command Wrong");
+                System.out.println("Input Error!");
             else
                 try {
                     switch (userCommand.getType()) {
@@ -72,8 +33,8 @@ public class Main {
                          AverageCase : O(n)
                          */
                         case ADD_SUB_SERVICE:
-                        /*MyNode*/ parent = services.getExistServiceNode(userCommand.getCommand()[4]);
-                        /*ServiceData*/ newService = new ServiceData(userCommand.getCommand()[2]);
+                        MyNode parent = services.getExistServiceNode(userCommand.getCommand()[4]);
+                        ServiceData newService = new ServiceData(userCommand.getCommand()[2]);
                             if (parent != null) {
                                 if (!services.addSubToService(parent, newService))
                                     System.out.println("Child Service is Wrong");
@@ -112,7 +73,8 @@ public class Main {
                             break;
                         case LIST_AGENCIES:
                             System.out.print("<");
-                            agencies.print(agencies.getFirst());
+                            if (agencies.getFirst() != null)
+                                agencies.print(agencies.getFirst());
                             System.out.print(">");
                             break;
                         case LIST_SERVICES:
