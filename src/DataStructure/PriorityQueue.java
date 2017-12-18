@@ -1,6 +1,7 @@
 package DataStructure;
 
 import Models.OrderData;
+import Models.ServiceData;
 
 public class PriorityQueue {
     private OrderData[] myQueue;
@@ -88,7 +89,7 @@ public class PriorityQueue {
     public void enqueueList() {
         while(size >= 1) {
             OrderData temp = remove();
-            System.out.println("CustomerName: " + temp.getCustomerName() /*+ "\tServiceName" + temp.getService().getDataName()*/ + "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
+            System.out.println("CustomerName: " + temp.getCustomerName() + "\tServiceName" + temp.getService().getDataName() + "\tCarModel" + temp.getService().getCarModel() + "\tOrderPriority: " + temp.getPriority() + "\tOrderTime: " + temp.getTime());
         }
     }
 

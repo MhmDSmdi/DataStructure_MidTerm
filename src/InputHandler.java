@@ -18,8 +18,8 @@ public class InputHandler {
 
     public InputHandler() {
         System.out.println("Commands: ");
-        System.out.println("\t*add service \"Service_Name\"");
-        System.out.println("\t*add subservice \"Sub_Service_Name\" to \"Service_Name\"");
+        System.out.println("\t*add service \"Service_Name\" \"Car Model\" \"Note\" \"Cost\"");
+        System.out.println("\t*add subservice \"Service_Name\" \"Car Model\" \"Note\" \"Cost\" to \"Service_Name\"");
         System.out.println("\t*add offer \"Service_Name\" to \"Agency_Name\"");
         System.out.println("\t*delete \"Service_Name\" from \"Agency_Name\"");
         System.out.println("\t*add agency \"Agency_Name\"");
@@ -36,10 +36,6 @@ public class InputHandler {
         String command = scanner.nextLine().trim().toLowerCase();
         return command.split(" ");
     }
-
-    /*private String[] trimArray(String[] input, int i) {
-        for (int j = 0 ; j < i ; j++)
-    }*/
 
     public Command parseCommand() {
         String[] input = getCommand();

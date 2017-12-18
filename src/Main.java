@@ -21,7 +21,7 @@ public class Main {
                     switch (userCommand.getType()) {
                         // Complexity : O(n)
                         case ADD_SERVICE:
-                            if(!services.addService(new ServiceData(userCommand.getCommand()[2])))
+                            if(!services.addService(new ServiceData(userCommand.getCommand()[2], userCommand.getCommand()[3], userCommand.getCommand()[4], userCommand.getCommand()[5])))
                                 System.out.println("Service is Exist in GList");
                             System.out.print("<");
                             services.printServiceGList();
@@ -33,8 +33,8 @@ public class Main {
                          AverageCase : O(n)
                          */
                         case ADD_SUB_SERVICE:
-                        MyNode parent = services.getExistServiceNode(userCommand.getCommand()[4]);
-                        ServiceData newService = new ServiceData(userCommand.getCommand()[2]);
+                        MyNode parent = services.getExistServiceNode(userCommand.getCommand()[7]);
+                        ServiceData newService = new ServiceData(userCommand.getCommand()[2], userCommand.getCommand()[3], userCommand.getCommand()[4], userCommand.getCommand()[5]);
                             if (parent != null) {
                                 if (!services.addSubToService(parent, newService))
                                     System.out.println("Child Service is Wrong");
